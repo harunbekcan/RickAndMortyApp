@@ -16,9 +16,10 @@ class CharacterPagingSource @Inject constructor (
         return try {
             val pageNumber = params.key ?: 1
             val response = rickAndMortyApi.getAllCharacter(pageNumber)
+            val data = response.results?.takeIf { it.isNotEmpty() }?.map { it.toCharacterUiModel() } ?: emptyList()
 
             LoadResult.Page(
-                data = response.results?.map { it.toCharacterUiModel() }!!,
+                data = data,
                 prevKey = if (pageNumber > 1) pageNumber - 1 else null,
                 nextKey = if (pageNumber < response.info.pages!!) pageNumber + 1 else null
             )

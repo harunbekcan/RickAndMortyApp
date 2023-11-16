@@ -9,7 +9,6 @@ import com.harunbekcan.rickandmortyapp.domain.usecase.GetAllCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,8 +17,8 @@ class CharactersViewModel @Inject constructor(
     private val getAllCharacterUseCase: GetAllCharacterUseCase
 ) : ViewModel() {
 
-    private val _allCharacter = MutableStateFlow<PagingData<CharacterUiModel>>(PagingData.empty())
-    val allCharacter = _allCharacter.asStateFlow()
+    private val _allCharacterData = MutableStateFlow<PagingData<CharacterUiModel>>(PagingData.empty())
+    val allCharacterData = _allCharacterData.asStateFlow()
 
     init {
         getAllCharacter()
@@ -27,9 +26,9 @@ class CharactersViewModel @Inject constructor(
 
     private fun getAllCharacter() {
         viewModelScope.launch {
-            getAllCharacterUseCase().onEach {
-                _allCharacter.value = it
-            }.cachedIn(viewModelScope)
+            getAllCharacterUseCase().cachedIn(viewModelScope).collect {
+                _allCharacterData.value = it
+            }
         }
     }
 }

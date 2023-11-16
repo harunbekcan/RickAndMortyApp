@@ -24,7 +24,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(FragmentChara
     }
 
     private fun pagingDataObserve(){
-        this.collectFlow(viewModel.allCharacter) {
+        collectFlow(viewModel.allCharacterData) {
             charactersPagingAdapter.submitData(it)
         }
     }
