@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.harunbekcan.rickandmortyapp"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -69,4 +69,11 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.12.0")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    //Paging3
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    kapt ("com.github.bumptech.glide:compiler:4.16.0")
 }
